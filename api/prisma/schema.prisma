@@ -1,0 +1,107 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model MapTile {
+  id        Int      @id @default(autoincrement())
+  x         Int      
+  y         Int      
+  type      String
+  parentId  Int?     
+  parent    MapTile? @relation("parent", fields: [parentId], references: [id])
+  childrens MapTile[] @relation("parent")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([x, y])
+
+}
+
+// model User {
+//   id        Int      @id @default(autoincrement())
+//   email     String   @unique
+//   password  String
+//   role      String
+//   cities    City[]
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
+
+model City {
+  id              Int      @id @default(autoincrement())
+  name            String
+  population      Int
+  x               Int
+  y               Int
+  max_store       Int
+  technology_age  Int
+  // user            User     @relation(fields: [userId], references: [id])
+  // userId          Int
+  money           Money?
+  // buildings       Buildings[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Money {
+  id        Int      @id @default(autoincrement())
+  total     Int
+  income    Int
+  outcome   Int
+  benefit   Int
+  cityId    Int      @unique
+  city      City     @relation(fields: [cityId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// model Buildings {
+//   id        Int      @id @default(autoincrement())
+//   name      String
+//   cost      Int
+//   income    Int
+//   population Int
+//   buildingTypesId Int @unique
+//   buildingType  BuildingsTypes @relation(fields: [buildingTypesId], references: [id])
+//   cityId    Int
+//   city      City     @relation(fields: [cityId], references: [id])
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
+
+// model BuildingsRequeriments {
+//   id          Int      @id @default(autoincrement())
+//   buildingTypesId  Int
+//   building    BuildingsTypes @relation(fields: [buildingTypesId], references: [id])
+//   amount      Int
+//   resource    String
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @updatedAt
+// }
+
+// model BuildingsTypes {
+//   id                  Int      @id @default(autoincrement())
+//   name                String
+//   cost                Int
+//   benefit_population  Int  
+//   capacity_population Int
+//   generator_time      Int
+//   generator_amount    Int
+//   generator_resource  String
+//   requeriments        BuildingsRequeriments[]
+//   buildings           Buildings[]
+//   createdAt           DateTime @default(now())
+//   updatedAt           DateTime @updatedAt
+// }

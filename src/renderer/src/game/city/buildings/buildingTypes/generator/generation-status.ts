@@ -1,0 +1,7 @@
+export const GenerationStatus = {
+  GENERATING: 'GENERATING',
+  PAUSED: 'PAUSED',
+  STORAGE_FULL: 'STORAGE_FULL',
+  NO_LINK: 'NO_LINK',
+  NO_WORKERS: 'NO_WORKERS'
+}
