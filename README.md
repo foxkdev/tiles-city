@@ -1,6 +1,6 @@
-# electron-vite-sveltekit-template
+# Tiles City Game
 
-A minimal Electron application with TypeScript + SvelteKit + Bytenode
+A Electron application with TypeScript + SvelteKit + Tree.js
 
 # How it works?
 Template utilizes [electron-vite](https://github.com/alex8088/electron-vite) for its ability to bundle & compile node.js (main & renderer files) to V8 Bytecode.
