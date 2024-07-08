@@ -138,6 +138,8 @@ export class Map {
   }
 
   removeBuilding(x: number, y: number) {
+    console.log('REMOVE BUILDING', x, y) 
+    // SOLO COJE EL PRIMER TILE, SINO NO FUNCIONA EL REMOVE, SE DEBE SELECCIONAR TODO EL BUILD.
     window.apiManager.delete('building', { x, y})
     const tile = this.getTile(x, y);
     if (tile?.building) {
