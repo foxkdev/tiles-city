@@ -1,5 +1,5 @@
 import { tools } from "../tools";
-import { toolActive } from "../store";
+import { toolActive, lastToolActive } from "../store";
 import { CameraManager } from "./camera";
 export class InputManager {
   dom: HTMLElement;
@@ -14,6 +14,8 @@ export class InputManager {
   keybindings: { [key: string]: Function } = {}
   
   cameraManager: CameraManager;
+
+  toolActive: any;
   private static instance: InputManager | null = null;
   constructor(dom: HTMLElement) {
     this.dom = dom
@@ -26,6 +28,10 @@ export class InputManager {
     document.addEventListener('keydown', this.onKeyDown.bind(this), false);
 
     this.keybindings = {}
+
+    toolActive.subscribe(value => {
+      this.toolActive = value;
+    })
 
     this.loadKeybindings()
   }
@@ -87,7 +93,7 @@ export class InputManager {
       s: () => this.setTool(tools['SELECT']),
       h: () => this.setTool(tools['HOUSE']),
       d: () => this.setTool(tools['DELETE']),
-      r: () => this.setTool(tools['ROAD']),
+      r: () => this.setTool(tools['ROTATE']),
       ArrowUp: () => this.cameraManager.cameraUp(),
       ArrowDown: () => this.cameraManager.cameraDown(),
       ArrowLeft: () => this.cameraManager.cameraLeft(),
@@ -97,6 +103,7 @@ export class InputManager {
     this.keybindings = defaultKeybindings
   }
   setTool(tool: any) {
+    lastToolActive.set(this.toolActivess)
     toolActive.set(tool)
   }
 }

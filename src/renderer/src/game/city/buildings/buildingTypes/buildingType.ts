@@ -3,7 +3,8 @@ export const BuildingType = {
   ROAD: 'ROAD',
   HOUSE: 'HOUSE',
   GENERATOR: 'GENERATOR',
-  TREE: 'TREE'
+  TREE: 'TREE',
+  WALL_BRICKS: 'WALL_BRICKS'
   
 }
 // ESTO ES DE TEST, AQUI PONER CADA BUILD

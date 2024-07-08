@@ -9,7 +9,7 @@ import { CityObject } from './city/cityObject';
 
 import { config } from './config/config';
 
-import { toolActive, gameLoaded, tileSelected } from '../store';
+import { toolActive, lastToolActive, gameLoaded, tileSelected } from '../store';
 import { Map } from './map';
 import type { Building } from './city/buildings/building';
 import { ApiManager } from './managers/api-manager';
@@ -30,6 +30,7 @@ export class Game {
 
   inBuildingMode: boolean = false;
   toolActive: any = {};
+  lastToolActive: any = {};
   dom: HTMLElement;
 
   // timeManager: TimeManager;
@@ -66,6 +67,9 @@ export class Game {
     // Subscribe When UI change tool
     toolActive.subscribe(value => {
       this.toolActive = value;
+    });
+    lastToolActive.subscribe(value => {
+      this.lastToolActive = value;
     });
 
     window.addEventListener('resize', this.onResize.bind(this));
@@ -155,15 +159,43 @@ export class Game {
 
   moveMode(building: Building) {
     this.setInBuildingMode(true);
-    const { x, y } = this.mapManager.focusedTile;
+    const { x, y } = this.mapManager.focusedTiles;
     // NECESITAMOS CONTROLAR LOS CLICKS
+  }
+
+  rotateMode(building: Building) {
+    // this.setInBuildingMode(true);
+    this.toolActive = this.lastToolActive;
+    this.toolActive.focus = this.rotateFocus(this.lastToolActive.focus);
+    this.useTool();
+    // const { x, y } = this.mapManager.focusedTiles;
+    // this.mapManager.rotateBuilding(x, y);
+  
+  }
+
+  rotateFocus(focus: any) {
+    if (focus.length === 0) return [];
+
+    // const tiles: any = []
+    const result: any = focus.map((_, index) => {
+        return { x: focus[index].y, y: focus[index].x };
+    });
+    // focus.forEach((fc: Tile) => {
+    //   const tile = this.getTile(fc.y, fc.x)
+    //   tiles.push(tile);
+    // })
+
+    // console.log('FOCUS', focus)
+
+    return result;
   }
   useTool() {
     const tools = {
       SELECT: this.selectMode.bind(this),
       DELETE: this.deleteMode.bind(this),
       PLACE: this.placeMode.bind(this),
-      MOVE: this.moveMode.bind(this)
+      MOVE: this.moveMode.bind(this),
+      ROTATE: this.rotateMode.bind(this),
     }
 
     tools[this.toolActive.toolId](this.toolActive.id)

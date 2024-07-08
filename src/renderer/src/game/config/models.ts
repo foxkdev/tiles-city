@@ -4,6 +4,11 @@ export default {
     "filename": "house.glb",
     "scale": 3
   },
+  "wall_bricks": {
+    "type": "zone",
+    "filename": "wall_bricks.glb",
+    "scale": 4
+  },
   "road": {
     "type": "ROAD",
     "filename": "road.glb",
@@ -17,6 +22,8 @@ export default {
     "scale": 10,
     "textures": "base"
   },
+
+  //OLD
   "under-construction": {
     "type": "zone",
     "filename": "construction-small.glb",

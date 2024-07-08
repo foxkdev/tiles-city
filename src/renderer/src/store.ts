@@ -6,6 +6,7 @@ export const gameLoaded = writable(false);
 export const tileSelected = writable(undefined);
 
 export const toolActive = writable(tools['SELECT']);
+export const lastToolActive = writable(tools['SELECT']);
 
 export const totalMoney = writable(0);
 export const totalBenefits = writable(0);

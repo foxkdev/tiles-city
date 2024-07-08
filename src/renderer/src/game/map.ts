@@ -10,11 +10,10 @@ import type { CityObject } from './city/cityObject';
 import { tileSelected, toolActive } from '../store';
 const SIZE = 100
 
-
+const MARGIN = 10;
 export class Map {
   tiles: any = []
   map: any = []
-
   root = new THREE.Group();
   
   camera: THREE.OrthographicCamera
@@ -106,7 +105,6 @@ export class Map {
     return light;
   }
 
-
   // TILES 
   getTile(x: number, y: number) {
     return this.tiles.find((tile: Tile) => tile.x === x && tile.y === y)
@@ -158,6 +156,13 @@ export class Map {
     // TODO: Plantear como hacer, pero hayy que controlar numero de clicks hechos con la herramienta puesta.
   }
 
+  rotateBuilding(x: number, y: number) {
+    const tile = this.getTile(x, y);
+    if (tile?.building) {
+      tile.building.rotate();
+    }
+  }
+
   canPlaceTile(tiles: Tile[]) {
     return tiles.every((t) => !t.building)
   }
@@ -186,6 +191,7 @@ export class Map {
         t.parent?.setFocused(false)
       }
     })
+    this.focusedTiles = []
     // to generate grid
     // const grid = []
     // for (let i = 0; i < this.buildSize.x; i++) {
@@ -195,14 +201,18 @@ export class Map {
     // }
 
     // console.log('GRID', grid)
-    this.focusedTiles = []
+    
     const tile = this.raycast();
-    if(tile) { 
-      // console.log('TILE', tile)  
+    if(tile) {
+      // comprobamoos si estamos en radio de generar mas mapa.
+      // console.log(this.camera.position)
+      // console.log('TILE', tile)
+      // console.log(this.getMapSize());
       this.tool.focus.forEach((xy: any) => {
         const t = this.getTile(tile.x + xy.x, tile.y + xy.y)
         this.focusedTiles.push(t)
       })
+      
       
       this.focusedTiles.forEach((t) => {
         t.setFocused(true)
@@ -223,4 +233,6 @@ export class Map {
   draw() {
     this.checkFocusedTile()
   }
+
+  
 }
