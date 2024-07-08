@@ -1,9 +1,8 @@
-import type { Map } from "../map";
-import { Building } from "./buildings/building";
-import { City } from "./city";
-import { CityObject } from "./cityObject";
+import type { Map } from "../../map";
+import { Building } from "../building";
+import { MapObject } from "./mapObject";
 
-export class Tile extends CityObject {
+export class Tile extends MapObject {
   terrain: string = 'grass';
 
   building: any = null;

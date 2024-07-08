@@ -1,8 +1,4 @@
-import * as THREE from 'three';
-import { Tile } from './tile';
-import { createBuilding } from './buildings/buildingFactory';
-import { BuildingType } from './buildings/buildingTypes/buildingType';
-import type { Building } from './buildings/building';
+import type { Building } from '../buildings/building';
 
 
 export class City {

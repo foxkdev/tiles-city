@@ -5,13 +5,13 @@ import { CameraManager } from './camera';
 import { AssetManager } from './managers/asset-manager';
 import { City } from './city/city';
 import { InputManager } from './input';
-import { CityObject } from './city/cityObject';
+import type { MapObject } from './buildings/map/mapObject';
 
 import { config } from './config/config';
 
 import { toolActive, lastToolActive, gameLoaded, tileSelected } from '../store';
 import { Map } from './map';
-import type { Building } from './city/buildings/building';
+import type { Building } from './buildings/building';
 import { ApiManager } from './managers/api-manager';
 // import { TimeManager } from './managers/time-manager';
 // import { MoneyManager } from './managers/money-manager';
@@ -25,8 +25,8 @@ export class Game {
   city!: City;
   cameraManager: CameraManager;
 
-  focusedObject: CityObject | null = null;
-  selectedObject: CityObject | null = null;
+  focusedObject: MapObject | null = null;
+  selectedObject: MapObject | null = null;
 
   inBuildingMode: boolean = false;
   toolActive: any = {};

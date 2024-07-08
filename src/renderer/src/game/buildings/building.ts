@@ -1,8 +1,7 @@
 import * as THREE from 'three';
-import { CityObject } from '../cityObject';
-import { City } from '../city';
+import { MapObject } from './map/mapObject';
 
-export class Building extends CityObject {
+export class Building extends MapObject {
 
   type = 'building';
 
@@ -17,7 +16,10 @@ export class Building extends CityObject {
   costMoney = 0; // cost to build every second
   benefitMoney = 0; // benefit to build every second
 
-  
+  grid = {
+    x: 1,
+    y: 1
+  }
   constructor(x = 0, y = 0) {
     super(x, y);
     this.name = 'Building';
@@ -31,6 +33,5 @@ export class Building extends CityObject {
 
   dispose() {
     super.dispose();
-
   }
 }

@@ -1,5 +1,5 @@
-import { Wood } from "../../../../resources/wood";
-import { BuildingType } from "../buildingType";
+import { Wood } from "../../resources/wood";
+import { Buildings } from "../../config/buildings";
 import { BuildGenerator } from "./build-generator";
 import { GenerationStatus } from "./generation-status";
 
@@ -28,7 +28,7 @@ export class WoodGenerator extends BuildGenerator {
   constructor() {
     super();
     this.name = 'WoodGenerator';
-    this.type = BuildingType.WOOD_GENERATOR;
+    this.type = Buildings.WOOD_GENERATOR.id;
 
     this.costMoney = this.initialCost;
     // SYNC WITH STORE -> FUTURE -> Cambiar a qque un transporte lo lleva.

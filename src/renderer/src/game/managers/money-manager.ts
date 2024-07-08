@@ -1,6 +1,6 @@
 
-import type { Building } from '../city/buildings/building';
-import type { Tile } from '../city/tile';
+import type { Building } from '../buildings/building';
+import type { Tile } from '../buildings/map/tile';
 import { totalMoney, totalBenefits } from '.../store';
 
 

@@ -1,11 +1,8 @@
 import * as THREE from 'three';
-import { Tile } from "./city/tile";
+import { Tile } from "./buildings/map/tile";
 
 
-import { createBuilding } from './city/buildings/buildingFactory';
-import { BuildingType } from './city/buildings/buildingTypes/buildingType';
-import type { Building } from './city/buildings/building';
-import type { CityObject } from './city/cityObject';
+import { createBuilding } from './buildings/buildingFactory';
 
 import { tileSelected, toolActive } from '../store';
 const SIZE = 100

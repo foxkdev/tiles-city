@@ -1,7 +1,7 @@
 
-import type { Building } from "../city/buildings/building";
-import { BuildingType } from "../city/buildings/buildingTypes/buildingType";
-import type { House } from "../city/buildings/buildingTypes/houses/house";
+import type { Building } from "../buildings/building";
+import { BuildingType } from "../buildings/buildingType";
+import type { House } from "../buildings/houses/house";
 import { totalResidents, totalResidentsCapacity } from ".../store";
 export class ResidentsManager {
   totalResidents = 0

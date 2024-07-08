@@ -1,7 +1,5 @@
-import { Resource } from "../../../../resources/resource";
-import { City } from "../../../city";
-import { Building } from "../../building";
-import { BuildingType } from "../buildingType";
+import { Resource } from "../../resources/resource";
+import { Building } from "../building";
 import { GenerationStatus } from "./generation-status";
 
 export class BuildGenerator extends Building {
@@ -33,7 +31,7 @@ export class BuildGenerator extends Building {
   constructor() {
     super();
     this.name = 'Resource';
-    this.type = BuildingType.GENERATOR;
+    this.type = 'GENERATOR';
 
     this.costMoney = this.initialCost;
 

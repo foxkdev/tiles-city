@@ -1,6 +1,6 @@
-import { City } from "../../../city";
-import { Building } from "../../building";
-import { BuildingType } from "../buildingType";
+import { Building } from "../building";
+import { Buildings } from "../../config/buildings";
+import type { City } from "../../city/city";
 
 export class House extends Building {
   modelName = 'house';
@@ -20,7 +20,7 @@ export class House extends Building {
   constructor() {
     super();
     this.name = 'House';
-    this.type = BuildingType.HOUSE;
+    this.type = Buildings.HOUSE.id;
 
 
     this.scale.set(1.8, 1.8, 1.8)

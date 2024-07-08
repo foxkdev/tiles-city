@@ -1,7 +1,7 @@
 
 
-import { BuildingType } from "../city/buildings/buildingTypes/buildingType";
-import { BuildGenerator } from "../city/buildings/buildingTypes/generator/build-generator";
+import { BuildingType } from "../buildings/buildingType";
+import { BuildGenerator } from "../buildings/generator/build-generator";
 import { Resource } from "../resources/resource";
 import { Wood } from "../resources/wood";
 

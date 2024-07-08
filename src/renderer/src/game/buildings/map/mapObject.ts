@@ -1,11 +1,11 @@
 import * as THREE from 'three';
-import type { City } from './city';
+import type { City } from '../../city/city';
 
 const SELECTED_COLOR = 0xaaaa55;
 const HIGHLIGHTED_COLOR = 0x555555;
 const NOT_ACTION_COLOR = 0xed2939;
 
-export class CityObject extends THREE.Object3D {
+export class MapObject extends THREE.Object3D {
   mesh: THREE.Mesh | null = null;
   
   worldPos: THREE.Vector3 = new THREE.Vector3();
@@ -13,7 +13,7 @@ export class CityObject extends THREE.Object3D {
  
   constructor(x = 0, y = 0) {
     super();
-    this.name = 'CityObject'
+    this.name = 'MapObject'
     this.position.x = x;
     this.position.z = y;
   }

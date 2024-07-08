@@ -1,14 +1,14 @@
 import * as THREE from 'three';
 import { Building } from '../building';
-import { BuildingType } from '../buildingTypes/buildingType';
-import type { Map } from '../../../map';
+import { Buildings } from "../../config/buildings";
+import type { Map } from '../../map';
 
-export class Tree extends Building {
-  modelName = 'tree';
+export class Road extends Building {
+  modelName = 'road';
   constructor() {
     super();
-    this.name = 'Tree';
-    this.type = BuildingType.TREE;
+    this.name = 'Road';
+    this.type = Buildings.ROAD.id;
     this.hideTerrain = false;
 
     const randomRotationCount = Math.floor(Math.random() * 4);
@@ -18,7 +18,7 @@ export class Tree extends Building {
   }
 
   refreshView(map: Map) {
-    const mesh = window.assetManager.getModel(`tree`, this);
+    const mesh = window.assetManager.getModel(`road`, this);
 
     this.setMesh(mesh);
   }
