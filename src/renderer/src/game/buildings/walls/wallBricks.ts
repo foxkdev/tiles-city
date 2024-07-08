@@ -13,10 +13,12 @@ export class WallBricks extends Building {
     this.scale.set(2.1, 1.8, 1.8)
     this.position.set(1.5, 0, 0.1);
 
-    this.grid = {
-      x: 4,
-      y: 1
-    }
+    this.grid = [
+      { x: 0, y: 0 },
+      { x: 1, y: 0 },
+      { x: 2, y: 0 },
+      { x: 3, y: 0 },
+    ]
   }
 
   rotate() {

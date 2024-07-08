@@ -16,10 +16,12 @@ export class Building extends MapObject {
   costMoney = 0; // cost to build every second
   benefitMoney = 0; // benefit to build every second
 
-  grid = {
-    x: 1,
-    y: 1
-  }
+  grid = [{
+    x: 0,
+    y: 0
+  }]
+
+  hoverBuilding = null;
   constructor(x = 0, y = 0) {
     super(x, y);
     this.name = 'Building';
@@ -34,4 +36,14 @@ export class Building extends MapObject {
   dispose() {
     super.dispose();
   }
+
+  // getGrid() {
+  //   const grid = [];
+  //   for (let x = 0; x < this.grid.x; x++) {
+  //     for (let y = 0; y < this.grid.y; y++) {
+  //       grid.push({ x: this.x + x, y: this.y + y });
+  //     }
+  //   }
+  //   return grid;
+  // }
 }

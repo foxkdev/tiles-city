@@ -11,10 +11,10 @@ export class Road extends Building {
     this.type = Buildings.ROAD.id;
     this.hideTerrain = false;
 
-    const randomRotationCount = Math.floor(Math.random() * 4);
+    // const randomRotationCount = Math.floor(Math.random() * 4);
 
-    const angles = [0, 90, 180, 270]
-    this.rotation.set(0, THREE.MathUtils.degToRad(angles[randomRotationCount]), 0);
+    // const angles = [0, 90, 180, 270]
+    // this.rotation.set(0, THREE.MathUtils.degToRad(angles[randomRotationCount]), 0);
   }
 
   refreshView(map: Map) {
@@ -22,4 +22,5 @@ export class Road extends Building {
 
     this.setMesh(mesh);
   }
+  
 }

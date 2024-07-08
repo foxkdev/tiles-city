@@ -19,7 +19,9 @@ export class Map {
 
   focusedTiles: Tile[] = []
   selectedTile: Tile | null = null;
-  hoverTiles: Tile[] = []
+  hoverTile: Tile | null = null
+  lastFocusedTile: Tile | null = null;
+
   tool: any;
   constructor(camera: THREE.OrthographicCamera, scene: THREE.Scene) {
     this.camera = camera
@@ -119,21 +121,20 @@ export class Map {
   }
 
   // TOOLS
-  placeBuilding(focusedTiles: Tile[], buildingType: string) {
-    const canPlace = this.canPlaceTile(focusedTiles);
-    if(!canPlace) {
-      focusedTiles.forEach((t) => {
-        t.setNotAction();
-      });
-      return;
+  placeBuilding(buildingType: string) {
+    console.log('PLACE BUILDING', this.hoverTile)
+    // const canPlace = this.canPlaceTile(hoverTiles);
+    // if(!canPlace) {
+    //   hoverTiles.forEach((t) => {
+    //     t.setNotAction();
+    //   });
+    //   return;
+    // }
+    const tile = this.hoverTile;
+    if(tile) {
+      window.apiManager.post('building', { x: tile.x, y: tile.y, type: buildingType})
     }
-    const tile = focusedTiles[0]; 
-    window.apiManager.post('building', { x: tile.x, y: tile.y, type: buildingType})
-    const building: any = createBuilding(buildingType);
-    tile.setBuilding(building)
-    // tile.refreshView(this);
-    this.refreshTile(tile);
-    // this.addBuilding(building);
+    this.hoverTile = null
   }
 
   removeBuilding(x: number, y: number) {
@@ -182,11 +183,14 @@ export class Map {
   }
 
   checkFocusedTile() {
+    // quitamos todo lo que esta focused antes
+    // this.hoverTiles.forEach((t) => {
+    //   t.setBuilding(t.hoverBuilding)
+    // });
+    this.hoverTile?.setBuilding(this.hoverTile?.hoverBuilding)
+    this.hoverTile = null
     this.focusedTiles.forEach((t) => {
       t.setFocused(false)
-      if(t.isPartOfBuilding) {
-        t.parent?.setFocused(false)
-      }
     })
     this.focusedTiles = []
     // to generate grid
@@ -198,19 +202,41 @@ export class Map {
     // }
 
     // console.log('GRID', grid)
-    
+    // tenemos el tile focuseado
     const tile = this.raycast();
     if(tile) {
+      // check if is last focused
       // comprobamoos si estamos en radio de generar mas mapa.
-      // console.log(this.camera.position)
-      // console.log('TILE', tile)
-      // console.log(this.getMapSize());
-      this.tool.focus.forEach((xy: any) => {
-        const t = this.getTile(tile.x + xy.x, tile.y + xy.y)
-        this.focusedTiles.push(t)
-      })
+      // pasamos focused al grid completo
+      if(this.tool.toolId === 'PLACE') {
+        const t = this.getTile(tile.x, tile.y)
+        t.hoverBuilding = t.building
+        const building: any = createBuilding(this.tool.id);
+        t.setBuilding(building)
+        // t.setFocused(true)
+        // if(t.hoverBuilding) {
+        //   t.setNotAction();
+        // }
+        this.refreshTile(t);
+        this.hoverTile = t
+        // t.setFocused(true);
+        // console.log('GRID', t.building.grid)
+        t.building?.grid.forEach((xy: any) => {
+          const tg = this.getTile(t.x + xy.x, t.y + xy.y)
+          this.focusedTiles.push(tg)
+        });
+      }else {
+        // tile.setFocused(true)
+        
+        this.focusedTiles.push(tile)
+      }
       
+      // this.tool.focus.forEach((xy: any) => {
+      //   const t = this.getTile(tile.x + xy.x, tile.y + xy.y)
+      //   this.focusedTiles.push(t)
+      // })
       
+      // focuseamos los tiles
       this.focusedTiles.forEach((t) => {
         t.setFocused(true)
       })

@@ -34,12 +34,13 @@ export class Tile extends MapObject {
     this.building?.refreshView(map);
     if (this.building?.hideTerrain) {
       this.setMesh(null);
-    } else if(!this.isPartOfBuilding){
+    } else {
       const mesh = window.assetManager.getModel(this.terrain, this);
       mesh.name = this.terrain;
       this.setMesh(mesh);
     }
   }
+
 
   setFocused(value: boolean): void {
     super.setFocused(value);

@@ -148,7 +148,7 @@ export class Game {
   placeMode(building: Building) {
     this.setInBuildingMode(true);
     // const tile = this.mapManager.focusedTiles[0];
-    this.mapManager.placeBuilding(this.mapManager.focusedTiles, this.toolActive.id);
+    this.mapManager.placeBuilding(this.toolActive.id);
   }
 
   deleteMode(building: Building) {

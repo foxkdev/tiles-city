@@ -103,7 +103,7 @@ export class InputManager {
     this.keybindings = defaultKeybindings
   }
   setTool(tool: any) {
-    lastToolActive.set(this.toolActivess)
+    lastToolActive.set(this.toolActive)
     toolActive.set(tool)
   }
 }
