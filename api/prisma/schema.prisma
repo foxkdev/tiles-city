@@ -19,6 +19,7 @@ model MapTile {
   x         Int      
   y         Int      
   type      String
+  rotation  Int     @default(0)
   parentId  Int?     
   parent    MapTile? @relation("parent", fields: [parentId], references: [id])
   childrens MapTile[] @relation("parent")

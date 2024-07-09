@@ -93,7 +93,7 @@ export class InputManager {
       s: () => this.setTool(tools['SELECT']),
       h: () => this.setTool(tools['HOUSE']),
       d: () => this.setTool(tools['DELETE']),
-      r: () => this.setTool(tools['ROTATE']),
+      r: () => this.rotate(),
       ArrowUp: () => this.cameraManager.cameraUp(),
       ArrowDown: () => this.cameraManager.cameraDown(),
       ArrowLeft: () => this.cameraManager.cameraLeft(),
@@ -106,4 +106,9 @@ export class InputManager {
     lastToolActive.set(this.toolActive)
     toolActive.set(tool)
   }
+
+  rotate() {
+    window.game.rotateMode()
+  }
+
 }

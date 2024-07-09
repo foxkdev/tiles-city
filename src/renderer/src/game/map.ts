@@ -21,6 +21,7 @@ export class Map {
   selectedTile: Tile | null = null;
   hoverTile: Tile | null = null
   lastFocusedTile: Tile | null = null;
+  hoverTileRotation: number = 0;
 
   tool: any;
   constructor(camera: THREE.OrthographicCamera, scene: THREE.Scene) {
@@ -47,12 +48,15 @@ export class Map {
         const tile = new Tile(t.x, t.y);
         if(t.type != 'TERRAIN' && t.type != 'PART_OF' && t.type != 'WALL' ) { // FALTA INCLUIR WALL EN TYPES, DEJAR SOLO TERRAIN
           const building = createBuilding(t.type);
+          building.setRotation(t.rotation);
           tile.setBuilding(building)
+
         }
         if(t.type === 'PART_OF') {
           tile.isPartOfBuilding = true
           tile.parentCoords = {x: t.parent.x, y: t.parent.y}
         }
+        
         this.refreshTile(tile)
         this.root.add(tile)
         this.tiles.push(tile)
@@ -123,7 +127,7 @@ export class Map {
   // TOOLS
   placeBuilding(buildingType: string) {
     console.log('PLACE BUILDING', this.hoverTile)
-    // const canPlace = this.canPlaceTile(hoverTiles);
+    // const canPlace = this.canPlaceTile(this.hoverTiles);
     // if(!canPlace) {
     //   hoverTiles.forEach((t) => {
     //     t.setNotAction();
@@ -132,7 +136,7 @@ export class Map {
     // }
     const tile = this.hoverTile;
     if(tile) {
-      window.apiManager.post('building', { x: tile.x, y: tile.y, type: buildingType})
+      window.apiManager.post('building', { x: tile.x, y: tile.y, type: buildingType, rotation: this.hoverTileRotation})
     }
     this.hoverTile = null
   }
@@ -156,11 +160,21 @@ export class Map {
     // TODO: Plantear como hacer, pero hayy que controlar numero de clicks hechos con la herramienta puesta.
   }
 
-  rotateBuilding(x: number, y: number) {
-    const tile = this.getTile(x, y);
-    if (tile?.building) {
-      tile.building.rotate();
+  rotateBuilding() {
+    const tile = this.hoverTile;
+    if(this.hoverTileRotation === 360) {
+      this.hoverTileRotation = 0;
     }
+    this.hoverTileRotation += 90;
+    // // const tile = this.getTile(x, y);
+    // if (tile?.building) {
+
+    //   // tile.building.rotate();
+    //   this.refreshTile(tile);
+    //   console.log(tile.building)
+    //   this.hoverTile = tile;
+    //   // console.log('ROTATE')
+    // }
   }
 
   canPlaceTile(tiles: Tile[]) {
@@ -214,6 +228,7 @@ export class Map {
         const t = this.getTile(tile.x, tile.y)
         t.hoverBuilding = t.building
         const building: any = createBuilding(this.tool.id);
+        building.setRotation(this.hoverTileRotation)
         t.setBuilding(building)
         // t.setFocused(true)
         // if(t.hoverBuilding) {

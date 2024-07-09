@@ -16,26 +16,6 @@ export class House extends Building {
   residentsCapacity = 10;
 
   requisites = []
-
-  grid = [
-    {
-      "x": 0,
-      "y": 0
-    },
-    {
-        "x": 0,
-        "y": 1
-    },
-    {
-        "x": 1,
-        "y": 0
-    },
-    {
-        "x": 1,
-        "y": 1
-    }
-
-  ]
   
   constructor() {
     super();
@@ -65,5 +45,27 @@ export class House extends Building {
   }
   dispose() {
     super.dispose();
+  }
+
+  getGrid() {
+    return [
+      {
+        "x": 0,
+        "y": 0
+      },
+      {
+          "x": 0,
+          "y": 1
+      },
+      {
+          "x": 1,
+          "y": 0
+      },
+      {
+          "x": 1,
+          "y": 1
+      }
+  
+    ]
   }
 }

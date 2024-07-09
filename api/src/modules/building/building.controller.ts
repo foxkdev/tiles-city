@@ -7,7 +7,7 @@ export class BuildingController {
 
   @Post()
   async placeBuilding(@Body() body): Promise<any> {
-    return this.buildingService.place(body.x, body.y, body.type);
+    return this.buildingService.place(body.x, body.y, body.type, body.rotation);
   }
 
   @Delete()

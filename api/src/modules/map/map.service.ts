@@ -58,11 +58,13 @@ export class MapService {
     y,
     type,
     parent,
+    rotation,
   }: {
     x: number;
     y: number;
     type: string;
     parent?: { connect: any };
+    rotation?: number;
   }): Promise<MapTile> {
     return this.prisma.mapTile.update({
       where: {
@@ -74,6 +76,7 @@ export class MapService {
       data: {
         type,
         parent,
+        rotation,
       },
     });
   }

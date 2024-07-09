@@ -25,6 +25,7 @@ export class Building extends MapObject {
   constructor(x = 0, y = 0) {
     super(x, y);
     this.name = 'Building';
+    this.grid = this.getGrid();
   }
 
   refreshView() {
@@ -32,18 +33,36 @@ export class Building extends MapObject {
 
     this.setMesh(mesh);
   }
-
+  
   dispose() {
     super.dispose();
   }
+  getGrid() {
+    return [
+      {
+        x: 0,
+        y: 0
+      }
+    ]
+  }
+  getGridRotated() {
+    return [
+      {
+        x: 0,
+        y: 0
+      }
+    ]
+  }
+  setRotation(rotation: number) {
+    this.rotation.set(0, THREE.MathUtils.degToRad(rotation), 0);
+    
+    if(rotation === 90 || rotation === 270) {
+      this.grid = this.getGridRotated();
+    } else {
+      this.grid = this.getGrid()
+    }
 
-  // getGrid() {
-  //   const grid = [];
-  //   for (let x = 0; x < this.grid.x; x++) {
-  //     for (let y = 0; y < this.grid.y; y++) {
-  //       grid.push({ x: this.x + x, y: this.y + y });
-  //     }
-  //   }
-  //   return grid;
-  // }
+    
+    
+  }
 }

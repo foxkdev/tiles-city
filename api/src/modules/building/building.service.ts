@@ -15,7 +15,12 @@ export class BuildingService {
     private mapService: MapService,
   ) {}
 
-  async place(x: number, y: number, type: string): Promise<any> {
+  async place(
+    x: number,
+    y: number,
+    type: string,
+    rotation: number,
+  ): Promise<any> {
     if (!BuildingTypes[type]) {
       throw new Error('Invalid building type');
     }
@@ -37,7 +42,7 @@ export class BuildingService {
     //     type,
     //   },
     // });
-    return this.mapService.updateTile({ x, y, type });
+    return this.mapService.updateTile({ x, y, type, rotation });
   }
 
   async delete(x: number, y: number): Promise<any> {

@@ -145,9 +145,8 @@ export class Game {
     this.mapManager.selectTile();
   }
 
-  placeMode(building: Building) {
+  placeMode() {
     this.setInBuildingMode(true);
-    // const tile = this.mapManager.focusedTiles[0];
     this.mapManager.placeBuilding(this.toolActive.id);
   }
 
@@ -163,31 +162,14 @@ export class Game {
     // NECESITAMOS CONTROLAR LOS CLICKS
   }
 
-  rotateMode(building: Building) {
-    // this.setInBuildingMode(true);
-    this.toolActive = this.lastToolActive;
-    this.toolActive.focus = this.rotateFocus(this.lastToolActive.focus);
-    this.useTool();
+  rotateMode() {
+    this.setInBuildingMode(true);
+    // this.toolActive = this.lastToolActive;
+    // this.toolActive.focus = this.rotateFocus(this.lastToolActive.focus);
+    // this.useTool();
     // const { x, y } = this.mapManager.focusedTiles;
-    // this.mapManager.rotateBuilding(x, y);
+    this.mapManager.rotateBuilding();
   
-  }
-
-  rotateFocus(focus: any) {
-    if (focus.length === 0) return [];
-
-    // const tiles: any = []
-    const result: any = focus.map((_, index) => {
-        return { x: focus[index].y, y: focus[index].x };
-    });
-    // focus.forEach((fc: Tile) => {
-    //   const tile = this.getTile(fc.y, fc.x)
-    //   tiles.push(tile);
-    // })
-
-    // console.log('FOCUS', focus)
-
-    return result;
   }
   useTool() {
     const tools = {
@@ -198,7 +180,8 @@ export class Game {
       ROTATE: this.rotateMode.bind(this),
     }
 
-    tools[this.toolActive.toolId](this.toolActive.id)
+    tools[this.toolActive.toolId]()
+    // this.setInBuildingMode
     
   }
 
