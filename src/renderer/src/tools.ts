@@ -28,4 +28,5 @@ export const tools = {
   HOUSE: { id: 'HOUSE', toolId: 'PLACE', text: 'HOUSE', size: {x: 2, y: 2}, focus: focus2x2},
   WOOD_GENERATOR:  { id: 'WOOD_GENERATOR', toolId: 'PLACE', text: 'WOOD', size: {x: 2, y: 2}, focus: focus2x2},
   WALL_BRICKS:  { id: 'WALL_BRICKS', toolId: 'PLACE', text: 'WBRICKS', size: {x: 4, y: 1}, focus: focus4x1},
+  EXPLORER: { id: 'EXPLORER', toolId: 'PLACE', text: 'EXPLORER',  size: {x: 1, y: 1}, focus: focus1x1},
 }

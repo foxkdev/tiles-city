@@ -53,6 +53,7 @@ export class InputManager {
     }
     if (event.button === 2) {
       this.isRightMouseDown = true;
+      window.game.mapManager.secondaryAction();
     }
   }
 

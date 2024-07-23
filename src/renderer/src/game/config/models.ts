@@ -23,6 +23,13 @@ export default {
     "textures": "base"
   },
 
+  "explorer": {
+    "type": "vehicle",
+    "filename": "car-hippie-van.glb",
+    "rotation": 90,
+    "scale": 12,
+  },
+
   //OLD
   "under-construction": {
     "type": "zone",

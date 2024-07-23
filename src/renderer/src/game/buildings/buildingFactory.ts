@@ -4,6 +4,8 @@ import { Road } from "./transportation/road";
 import { WoodGenerator } from "./generator/wood-generator";
 import { Tree } from "./map/tree";
 import { WallBricks } from "./walls/wallBricks";
+import { Explorer } from "../vehicles/explorer";
+import { Vehicles } from "../config/vehicles";
 
 const buildingConstructors = {
   [Buildings.HOUSE.id]: House,
@@ -11,6 +13,7 @@ const buildingConstructors = {
   [Buildings.WOOD_GENERATOR.id]: WoodGenerator,
   [Buildings.TREE.id]: Tree,
   [Buildings.WALL_BRICKS.id]: WallBricks,
+  [Vehicles.EXPLORER.id]: Explorer,
 }
 export function createBuilding(buildingType: string) {
   const BuildingConstructor = buildingConstructors[buildingType];

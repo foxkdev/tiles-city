@@ -5,9 +5,15 @@ import { Tile } from "./buildings/map/tile";
 import { createBuilding } from './buildings/buildingFactory';
 
 import { tileSelected, toolActive } from '../store';
+import { Navigator } from './navigator';
 const SIZE = 100
 
 const MARGIN = 10;
+
+
+const timer = ms => new Promise(res => setTimeout(res, ms))
+
+
 export class Map {
   tiles: any = []
   map: any = []
@@ -158,6 +164,14 @@ export class Map {
 
   moveBuilding(x: number, y: number, xTo: number, yTo: number) {
     // TODO: Plantear como hacer, pero hayy que controlar numero de clicks hechos con la herramienta puesta.
+    const last = this.getTile(x, y)
+    last.setBuilding(null)
+    this.refreshTile(last);
+    // ponemos nuevo
+    const tile = this.getTile(xTo, yTo)
+    const building = createBuilding(last.type);
+    tile.setBuilding(building)
+    this.refreshTile(tile)
   }
 
   rotateBuilding() {
@@ -238,7 +252,7 @@ export class Map {
         this.hoverTile = t
         // t.setFocused(true);
         // console.log('GRID', t.building.grid)
-        t.building?.grid.forEach((xy: any) => {
+        t.building?.grid?.forEach((xy: any) => {
           const tg = this.getTile(t.x + xy.x, t.y + xy.y)
           this.focusedTiles.push(tg)
         });
@@ -267,8 +281,72 @@ export class Map {
     this.selectedTile = this.focusedTiles[0];
     this.selectedTile?.setSelected(true);
     tileSelected.set(this.selectedTile);
+
   }
 
+  async secondaryAction() {
+    if(!this.selectedTile) return false;
+    if(this.selectedTile?.type === 'EXPLORER') {
+      const navigator = new Navigator(this.tiles)
+      const path = navigator.findPath(this.selectedTile, this.focusedTiles[0])
+      console.log('path', path)
+      // console.log('tile', this.selectedTile)
+      // console.log('focused', this.focusedTiles)
+
+      let current = this.selectedTile
+
+      let movements = 1
+      for(let i = 1;i < path.length; i++) {
+        const p = path[i]
+        const tile = this.getTile(p[0], p[1])
+        if(tile) {
+          // quitamos anterior
+          const last = this.getTile(path[i-1][0], path[i-1][1])
+          console.log('LAST', last)
+          last.setBuilding(null)
+          this.refreshTile(last);
+          // ponemos nuevo
+          const building = createBuilding(current.type);
+          tile.setBuilding(building)
+          this.refreshTile(tile)
+          movements++;
+          await timer(3000)
+        }
+      }
+      console.log('movements', movements)
+      // path.forEach((p: any) => {
+      //   let tile = this.getTile(p[0], p[1])
+      //   if(tile) {
+      //     tile.setBuilding(null);
+      //     // tile.setFocused(true)
+      //     console.log('tile', tile);
+      //     // if(tile.type === 'EXPLORER') {
+      //     //   // tile.setBuilding(null)
+      //     //   // this.refreshTile(tile)
+      //     //   return;
+      //     // }
+      //     const building: any = createBuilding(current.type);
+      //     // building.setRotation(current.rotation)
+      //     tile.setBuilding(building)
+      //     this.refreshTile(tile);
+      //     // current = tile;
+      //     // this.removeBuilding(current.x, current.y)
+      //     // tile.setBuilding()
+      //     // const building = current.building
+      //     // console.log('B', building);
+      //     // tile.setBuilding(building)
+      //     // console.log('BUILDING', tile)
+      //     // this.refreshTile(tile);
+      //     // const building = this.selectedTile
+      //     // console.log('building', building)
+      //     // tile.setBuilding(building)
+      //     // this.selectedTile?.parent?.setBuilding(null)
+      //     // this.refreshTile(tile)
+      //     // this.selectedTile = tile
+      //   }
+      // });
+    }
+  }
 
   draw() {
     this.checkFocusedTile()
